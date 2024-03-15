@@ -1,5 +1,6 @@
 '''This is a car class
 '''
+import os
 from random import randint as rand
 from time import sleep
 
@@ -18,13 +19,18 @@ class car:
                           }
     _brand_names: list = ['Ferrari', 'Porsche', 'Mercedes', 'BMW']
 
+
+
+
     def __init__(self):
         print('Welcome to cars game\nYou will create your own car \U0001F600\
                 \nThere are many brands you can choose wither from this list or from your mind')        
         self._print_brand()
-        self._brand = self.set_brand()
+        self._brand = self._set_brand()
+        self._model_year = self._set_model_year()
         self._engine_type = self._engine_types[self.set_engine_type()]
         self._body_shape = self._body_shapes[self.set_body_shape()]
+        
 
     '''This function randomly prints car brands
     '''
@@ -36,10 +42,18 @@ class car:
                 random_brand.append(random_name)
                 print(random_name)
                 sleep(2)
+    '''This function returns the model year
+    '''
+    def _set_model_year(self):
+        msg = "Enter the model year\n(Must be in numbers only) :"
+        model_year = input(msg)
+        while not model_year.isnumeric():
+            model_year = input(msg)
+        return int(model_year)
 
     '''This function returns a str representing the brand name of the car
     '''
-    def set_brand(self) -> str:
+    def _set_brand(self) -> str:
         brand = input("Enter the brand name of this car: ")
         while not brand.isalpha():
             brand = input("You must input the brand name as string without numbers")
@@ -84,9 +98,30 @@ class car:
     def get_engine_type(self) -> int:
         return self._engine_type
 
+    '''This function returns the body shape of the car
+    '''
+    def get_body_shape(self) -> str:
+        return self._body_shape
 
+    '''This function returns the model year of the car
+    '''
+    def get_model_year(self):
+        return self._model_year
+
+    '''This function returns the engine type of the car
+    '''
+    def get_engine_type(self):
+        return self._engine_type
+
+
+'''This function clears the screen
+'''
+def clear_screen():
+    print("\033c")
 
 if __name__ == "__main__":
+    clear_screen()
     car1 = car()
-    print(f'The details of this car:\n\t-Brand: {car1._brand}\n\t-Engine Type: {car1._engine_type}\
-            \n\t-Body Shape: {car1._body_shape}')
+    print(f'The details of this car:\n\t-Brand: {car1.get_brand()}\n\t\n\t-Model Year: {car1.get_model_year()}\
+            \n\t-Engine Type: {car1.get_engine_type()}\
+            \n\t-Body Shape: {car1.get_body_shape()}')
